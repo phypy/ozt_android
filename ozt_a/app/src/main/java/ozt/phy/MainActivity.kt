@@ -17,8 +17,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
+        //右侧settings图标
+//        toolbar.overflowIcon=resources.getDrawable(R.mipmap.ic_launcher_round)
+        fab_camera.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -26,8 +27,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled=false
+        toggle.setHomeAsUpIndicator(R.mipmap.ic_launcher_round)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
     }
 
@@ -58,16 +60,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_calendar -> {
+
+            }
+            R.id.nav_track -> {
+
             }
             R.id.nav_gallery -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_favorite -> {
 
             }
-            R.id.nav_manage -> {
+            R.id.nav_settings -> {
+
+            }
+            R.id.nav_style -> {
 
             }
             R.id.nav_share -> {

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">OZT</string>
+    <!--just a descripe-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">做点什么</string>
+
+    <string name="menu_gallery">相册</string>
+    <string name="menu_track">足迹</string>
+    <string name="menu_calendar">日历</string>
+    <string name="menu_favorite">收藏</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_style">换肤</string>
+</resources>
