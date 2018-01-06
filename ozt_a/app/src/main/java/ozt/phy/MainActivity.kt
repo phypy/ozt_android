@@ -1,36 +1,48 @@
 package ozt.phy
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private var toggle: ActionBarDrawerToggle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        //右侧settings图标
-//        toolbar.overflowIcon=resources.getDrawable(R.mipmap.ic_launcher_round)
+        initNavViewAndToolbar()
         fab_camera.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+    }
 
-        val toggle = ActionBarDrawerToggle(
+    fun initNavViewAndToolbar() {
+        setSupportActionBar(toolbar)
+        toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.isDrawerIndicatorEnabled=false
-        toggle.setHomeAsUpIndicator(R.mipmap.ic_launcher_round)
-        toggle.syncState()
+        drawer_layout.addDrawerListener(toggle!!)
+        toggle!!.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    /**
+     * 设置头像
+     */
+    fun setHeaderImg(headerImg: Bitmap) {
+        toggle!!.isDrawerIndicatorEnabled = false
+        toggle!!.setHomeAsUpIndicator(BitmapDrawable(headerImg))
+        toggle!!.syncState()
     }
 
     override fun onBackPressed() {
