@@ -1,5 +1,6 @@
 package ozt.phy
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -14,7 +15,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+        setContentView(initContainerView(R.layout.activity_main,true))
         setSupportActionBar(toolbar)
 
         fab_camera.setOnClickListener { view ->
@@ -57,16 +59,24 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_calendar -> {
+                //Handle the calendar action.
+                var intent = Intent(this@MainActivity, TestButtomNavigationActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_track -> {
+
             }
             R.id.nav_gallery -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_favorite -> {
 
             }
-            R.id.nav_manage -> {
+            R.id.nav_settings -> {
+
+            }
+            R.id.nav_style -> {
 
             }
             R.id.nav_share -> {
