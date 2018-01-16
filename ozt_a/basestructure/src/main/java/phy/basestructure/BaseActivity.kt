@@ -19,7 +19,7 @@ import java.util.*
  * Created by phy on 2018/1/12.
  * BaseActivity,all activities should extends this class.
  */
-open abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     //a list that keep the fragment tags.
     protected var fragmentList = LinkedList<String>()
 
@@ -56,12 +56,12 @@ open abstract class BaseActivity : AppCompatActivity() {
         return nav_bottom
     }
 
-    protected open fun show(clazz: Class<out BaseFragment>, extra: Bundle): BaseFragment? {
+    protected fun show(clazz: Class<out BaseFragment>, extra: Bundle?): BaseFragment? {
         return show(clazz, extra, true)
     }
 
-    protected open fun show(clazz: Class<out BaseFragment>, extra: Bundle, hideLast: Boolean): BaseFragment? {
-        var next = supportFragmentManager.findFragmentByTag(clazz.name) as BaseFragment
+    protected fun show(clazz: Class<out BaseFragment>, extra: Bundle?, hideLast: Boolean): BaseFragment? {
+        var next = supportFragmentManager.findFragmentByTag(clazz.name) as BaseFragment?
         if (next == null) {
             next = Fragment.instantiate(this, clazz.name) as BaseFragment
             next.arguments = extra
@@ -92,11 +92,12 @@ open abstract class BaseActivity : AppCompatActivity() {
         //remove the current show fragment tag.
         fragmentList.removeLast()
         //show the last fragment.
-        var last = supportFragmentManager.findFragmentByTag(fragmentList.last) as BaseFragment
+        var last = supportFragmentManager.findFragmentByTag(fragmentList.last) as BaseFragment?
         last?.let {
             //there leaved some problem,i'm not sure the fragment that pop back stack is the last one that in the fragmentList.
             //so,if find some error after a while,we can just use the show method to rollback a fragment replace popBackStack.
             supportFragmentManager.popBackStack()
+            android.util.Log.e("TAG", "popBackStack.")
         }
         return last
     }
@@ -110,7 +111,6 @@ open abstract class BaseActivity : AppCompatActivity() {
             //hide the input method if it showing.
             hideSoftInput()
         }
-        super.onBackPressed()
     }
 
     /**
@@ -123,7 +123,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun hideSoftInput() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         if (imm != null && imm.isActive && currentFocus != null && currentFocus!!.windowToken != null) {
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             //            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -131,7 +131,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showSoftInput(view: EditText) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.showSoftInput(view, SHOW_IMPLICIT)
     }
 }

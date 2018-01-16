@@ -1,12 +1,10 @@
 package ozt.phy
 
-import android.content.Context
 import android.support.annotation.Keep
 import android.support.v4.app.Fragment
 import android.view.View
 
-abstract class BaseFragment : Fragment() {
-    protected var mActivity: BaseActivity? = null
+open abstract class BaseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
@@ -25,17 +23,12 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        mActivity = context as BaseActivity
-    }
-
     /**
      * listener the action in ui which onClick attr is 'onBackPressed'
      * @param back
      */
     @Keep
     fun onBackPressed(back: View) {
-        mActivity!!.onBackPressed(back)
+        (activity as BaseActivity)!!.onBackPressed(back)
     }
 }// Required empty public constructor
